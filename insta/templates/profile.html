@@ -5,45 +5,23 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      {% if user.userprofile.pic %}
-      <img class="rounded-circle" src="{{user.userprofile.pic.cdn_url}}" width="250px" height="250px"
-        alt="Profile photo">
+      {% if user_profile.photo %}
+      <img class="rounded-circle" src="{{user_profile.photo.url}}" width="250px" height="250px" alt="Profile photo">
       {% else %}
-      <img class="rounded-circle"
-        src="https://cdn4.iconfinder.com/data/icons/human-user-business-person-avatars/100/23A-1User-512.png"
-        width="250px" height="250px" alt="Profile photo">
+      <img class="rounded-circle" src="https://uploads.scratch.mit.edu/users/avatars/41074063.png" width="250px"
+        height="250px" alt="Profile photo">
       {% endif %}
     </div>
     <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-8">
-          <h5>Username: {{user.username}}</h5>
-          <h5>Email: {{user.email}}</h5>
-          <!-- <hr> -->
-          <!-- <h6><b>Status</b></h6>
-          {% if user.userprofile.status %}
-          <p>{{user.userprofile.status}}</p>
-          {% else %}
-          <p class="alert alert-danger"> No status</p>
-          {% endif %}
-          <br>
-          <h6><b>Career</b></h6>
-          {% if user.userprofile.status %}
-          <p>{{user.userprofile.career}}</p>
-          {% else %}
-          <p class="alert alert-danger"> No Career</p>
-          {% endif %} -->
-        </div>
-        <div class="col-md-4">
-          <!-- <span style="color:lightblue">
-            <h4>Followers: {{user.userprofile.followers.count}}</h4>
-          </span>
-          <div class="button" id="button-6">
-            <div id="spin"></div>
+      <h5>Username: {{user.username}}</h5>
+      <p>{{user_profile.bio}}</p>
+      {% if user_profile.bio %}
 
-          </div> -->
-        </div>
-      </div>
+      <p> Bio: {{profile.bio}}</p>
+      {% else %}
+      <h5>Bio:</h5>
+      <p class="alert alert-danger"> No bio</p>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -55,14 +33,19 @@
     {% if posts %}>
     {% for post in posts %}
     <div style="margin-left:10px;" class="card bg-transparent">
-      <img class="image" src="{{post.image.url}}" style="margin-left:10px" width="250px" height="300px"
-        alt="{{post.name}}">
-      <p>{{post.caption}}</p>
-      <h5 style="font-size: 0.5rem"><i class="far fa-thumbs-up fa-4x i_head"></i><span style="color:red; font-size:30px;">{{post.likes.count}}</span></h5>
+      <div class="card-img-top">
+        <img class="image" src="{{post.image.url}}" style="margin-bottom: 10px; height: 300px; width: 410px;"
+          alt="{{post.name}}">
+      </div>
+      <div class="card-body">
+        <p>{{post.caption}}</p>
+        <h5 style="font-size: 0.5rem"><i class="far fa-thumbs-up fa-4x i_head"></i><span
+            style="color:red; font-size:30px;">{{post.likes.count}}</span></h5>
+      </div>
     </div>
-    <br>
-    <br>
+    <br><br><br>
     {% endfor %}
+
     {% else %}
     <p class="alert alert-danger"> No Posts</p>
     {% endif %}
@@ -70,3 +53,24 @@
   </div>
 </div>
 {% endblock %}
+
+
+
+
+
+
+
+
+<!-- <div class="card" style="margin-bottom: 60px;">
+  <div class="card-header">
+    <a href="{% url 'Profile' %}">{{i.user.username}}</a>
+  </div>
+  <div class="card-body">
+    <img class="card-img" src="{{i.image.url}}" alt="Card image cap" style="height: 600px; margin: 0;">
+    <p class="card-text">{{i.name}}</p>
+  </div>
+  <div class="card-footer ">
+    
+    <a href="/comments/{{i.id}}">Comment</a>
+  </div>
+</div> -->

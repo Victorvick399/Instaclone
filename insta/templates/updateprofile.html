@@ -3,6 +3,17 @@
 
 {% block content %}
   <div class="container">
-    
+    <form action="{%url 'Profile'%}" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+  
+      {% bootstrap_form user_form%}
+      <input type="submit" class="btn btn-success btn-lg" value="Post">
+    </form>
+    <form action="{%url 'Profile'%}" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+  
+      {% bootstrap_form profile_form%}
+      <input type="submit" class="btn btn-success btn-lg" value="Post">
+    </form>
   </div>
 {% endblock content %}

@@ -4,13 +4,24 @@ from datetime import datetime
 
 # Create your models here.
 class Profile(models.Model):
-    profile_photo = models.ImageField(
+    photo = models.ImageField(
         default='default.jpg', upload_to='profiles/')
     bio = models.CharField(max_length=300)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
+    @classmethod
+    def search_user(cls,username):    
+        user = User.objects.get(username=username)
+        return user
+
+    @classmethod
+    def get_profile(cls,name):
+        profile= cls.objects.filter(user = name)
+        return profile
 
     def save_profile(self):
         self.save()
+
 
     def delete_profile(self):
         self.delete()

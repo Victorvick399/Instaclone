@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content%}
+<a href="{% url 'About' %}" class="btn btn-primary btn-lg">About</a>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    {% for i in post %}
+    <!-- <div class="card" style="height:700px; margin: 10px;">
+      <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap" style="height: 600px;">
+      <div class="card-body">
+        <p class="card-text">{{i.name}}</p>
+      </div>
+    </div>
+    
+ -->
+
+
+    <div class="card" style="margin-bottom: 60px;">
+      <div class="card-header">
+        <a href="{% url 'Profile' %}">{{i.user.username}}</a>
+      </div>
+      <div class="card-body">
+        <img class="card-img" src="{{i.image.url}}" alt="Card image cap" style="height: 600px; margin: 0;">
+        <p class="card-text">{{i.name}}</p>
+      </div>
+      <div class="card-footer ">
+        
+        <a href="/comments/{{i.id}}">Comment</a>
+      </div>
+    </div>
+
+
+
+    {% endfor %}
+  </div>
+  <div class="col-md-4"></div>
+</div>
+{% endblock%}
+

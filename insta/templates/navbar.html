@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light sticky-top" style="background-color: rgb(255, 255, 255);">
+    <div class="container-fluid">
+      <div class="navbar-header" style="font-size: 0.5rem;">
+        <i class="fab fa-instagram fa-3x"></i>
+        <a class="navbar-brand heading" href="{% url 'Home' %}" style="font-size: 30px;"> | Instagram</a>
+      </div>
+      <!-- Adding a search form  -->
+      <div class="col-sm-4 col-md-4 navbar-right" style="font-size: 0.5rem">
+        <i class="far fa-compass fa-3x i_head navbar-brand"></i>
+        <a href="account/activity"><i class="far fa-heart fa-3x i_head navbar-brand"></i></a>
+        <a href="{% url 'Profile' %}"><i class="far fa-user fa-3x i_head  navbar-brand"></i></a>
+        <a href="{% url 'new_post' %}" class="heading post navbar-brand" style="font-size: 30px;">Post</a>
+        <!-- <form class="navbar-form" role="search" action="{% url 'About' %}">
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Useer" name="article">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+
+        </form> -->
+        <!-- {% if user.is_authenticated %}
+        <ul>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button"
+              aria-expanded="false">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="{%url 'Home'%}">Home</a>
+              </li>
+              <li>
+                <a href="/accounts/password/change">Change Password</a>
+              </li>
+              <li>
+                <a href="/logout">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        {% else %}
+        <li>
+          <a class='btn btn-default' href="/accounts/login">Login</a>
+        </li>
+        <li>
+          <a href="/accounts/register">Register</a>
+        </li>
+
+        {% endif %}
+      </div>
+      <!-- search form end -->
+    </div>
+  </nav>
+</body>
+
+</html>

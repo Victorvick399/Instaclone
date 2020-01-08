@@ -13,7 +13,6 @@ django-static-fontawesome==5.10.2
 gunicorn==20.0.4
 idna==2.8
 Pillow==6.2.1
-pkg-resources==0.0.0
 psycopg2==2.8.4
 pycodestyle==2.5.0
 python-dateutil==2.8.1

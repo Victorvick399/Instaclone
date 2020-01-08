@@ -4,8 +4,6 @@
   <div class="col-md-2"></div>
   <div class="col-md-6">
     {% for i in post %}
-
-
     <div class="card" style="margin-bottom: 60px;">
       <div class="card-header">
         <a href="{% url 'Profile' %}" class="heading" style="font-size: 35px;">{{i.posted_by}}</a>
@@ -14,14 +12,9 @@
         <img class="card-img" src="{{i.image.url}}" alt="{{i.caption}}" style="height: 600px; margin: 0;">
         <p class="card-text" style="margin-top: 10px;">{{i.caption}}</p>
       </div>
-
     </div>
-
-
-
     {% endfor %}
   </div>
   <div class="col-md-4"></div>
 </div>
 {% endblock%}
-

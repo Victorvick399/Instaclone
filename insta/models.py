@@ -71,6 +71,14 @@ class Post(models.Model):
             posted_by__id__contains=user_id).order_by('-id')
         return posts
 
+    @classmethod
+    def get_posts(cls, search_term):
+        '''
+        function tha searches for posts with a similar name
+        '''
+        posts=cls.objects.filter(image_name__icontains=search_term)
+        return posts
+
     def __str__(self):
         return self.name
 

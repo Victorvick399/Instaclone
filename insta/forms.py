@@ -4,22 +4,23 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
-class UpdateProfileForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     '''
     class that defines how the update profile form will look like
     '''
     class Meta:
         model = Profile
-        exclude = ['user', 'followers']
+        fields=['photo','bio']       
+        exclude = ['user']
 
 
-class UserUpdateForm(forms.ModelForm):
+class UpdateUserForm(forms.ModelForm):
     '''
     class that defines how the update user form will look like
     '''
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username']
 
 
 class PostForm(forms.ModelForm):

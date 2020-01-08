@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instaclone',
+        'NAME': 'horror',
         'USER': 'victor',
         'PASSWORD':'1234',
     }

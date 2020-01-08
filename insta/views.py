@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Comment
 from django.shortcuts import get_object_or_404
-from .forms import UpdateProfileForm, UserUpdateForm, PostForm, CommentForm
+from .forms import ProfileForm, UpdateUserForm, PostForm, CommentForm
 
 # Create your views here.
 
@@ -25,8 +25,8 @@ def profile(request):
     title = "Profile"
     current_user = request.user
     posts = Post.get_user_posts(request.user.id)
-    user_profile = Profile.objects.all()
-    return render(request, 'profile.html', {"posts": posts , "user_profile":user_profile})
+    
+    return render(request, 'profile.html', {"posts": posts })
 
 
 @login_required(login_url='accounts/login')
@@ -35,17 +35,18 @@ def update_profile(request):
     Function that renders the update profile template and passes the form into it.
     '''
 	if request.method == 'POST':
-		user_form = UserUpdateForm(request.POST ,instance=request.user )
-		profile_form = UpdateProfileForm(request.POST,request.FILES)
+		user_form = UpdateUserForm(request.POST, instance=request.user)
+		profile_form=UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()
 			profile_form.save()
-			return redirect('Profile')
+			messages.success(request, f'Your account has been updated.')
+			return redirect("profile")
 	else:
-		user_form = UserUpdateForm(instance=request.user)
-		profile_form = UpdateProfileForm()
+		user_form = UpdateUserForm(instance=request.user)
+		profile_form = ProfileForm()
 
-	return render(request, 'updateprofile.html', {"user_form":user_form,"profile_form":profile_form})
+	return render(request, 'updateprofile.html', {"profile_form":profile_form , "user_form":user_form})
 
 
 @login_required(login_url='/accounts/login')
@@ -84,3 +85,31 @@ def comment(request, id):
     comments = Comment.get_post_comments(image_id)
 
     return render(request, 'comment.html', {"form": form, "comments": comments, "post": image_posted})
+
+def search_results(request):
+    if 'user' in request.GET and request.GET["user"]:
+
+        search_term=request.GET.get('user')
+        try:
+            posts_name=Post.get_posts(search_term)
+            message=f'{search_term}'
+            title="Searched"
+
+            if posts_name:  
+                return render(request, 'search.html',{"posts":posts_name,"title":title,"message":message})
+        except ObjectDoesNotExist:        
+            message=f'{search_term}'
+            title="Searched"
+            return render(request, 'search.html',{"title":title,"message":message})
+
+        try:
+            user_found=User.objects.get(username=search_term)      
+            user_posts=Post.get_user_posts(user_found.id)
+            message=f'{search_term}'
+            title="Searched"
+            if user_posts or follow_user:                                        
+                return render(request, 'search.html',{"user_f":user_found,"posts":user_posts,"title":title,"message":message})
+        except ObjectDoesNotExist:
+            message=f'{search_term}'
+            title="Searched"
+            return render(request, 'search.html',{"title":title,"message":message})   

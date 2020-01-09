@@ -58,9 +58,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap4',
-    'django_static_fontawesome',
     'insta.apps.InstaConfig',
+    'bootstrap4',
+    'pyuploadcare.dj',
+    'django_static_fontawesome',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,7 +86,7 @@ ROOT_URLCONF = 'instaclone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,6 +99,14 @@ TEMPLATES = [
         },
     },
 ]
+
+UPLOADCARE = {
+    'pub_key': '70d8aaf1ad4486ccc7e7',
+    'secret': '594ba7fb2d65d443e9d6',
+}
+
+
+
 
 WSGI_APPLICATION = 'instaclone.wsgi.application'
 

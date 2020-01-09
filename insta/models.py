@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
 class Profile(models.Model):
-    photo = models.ImageField(
-        default='default.jpg', upload_to='profiles/')
+    photo = ImageField(blank=True,manual_crop='')
     bio = models.CharField(max_length=300)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
@@ -31,14 +31,14 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
-    image = models.ImageField(upload_to='image_posts/')
+    image = ImageField(manual_crop='')
     name = models.CharField(max_length=30)
     caption = models.CharField(max_length=200)
     likes = models.ManyToManyField(User, related_name="likes", blank=True)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     posted_on = models.DateTimeField(auto_now_add=True, null=True)
-
+    
     def save_image(self):
         self.save()
 

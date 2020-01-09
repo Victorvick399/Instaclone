@@ -34,26 +34,24 @@ def update_profile(request):
 	'''
     Function that renders the update profile template and passes the form into it.
     '''
+	current_user = request.user
 	if request.method == 'POST':
-		user_form = UpdateUserForm(request.POST, instance=request.user)
-		profile_form=UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-		if user_form.is_valid() and profile_form.is_valid():
-			user_form.save()
+		profile_form = ProfileForm(request.POST, instance=request.user.profile)
+		if profile_form.is_valid():
+			Profile.objects.filter(user_id=current_user.id).delete()
 			profile_form.save()
-			messages.success(request, f'Your account has been updated.')
-			return redirect("profile")
+			return redirect("Profile")
 	else:
-		user_form = UpdateUserForm(instance=request.user)
 		profile_form = ProfileForm()
 
-	return render(request, 'updateprofile.html', {"profile_form":profile_form , "user_form":user_form})
+	return render(request, 'updateprofile.html', {"profile_form":profile_form})
 
 
 @login_required(login_url='/accounts/login')
 def new_post(request):
     current_user = request.user
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.posted_by = current_user

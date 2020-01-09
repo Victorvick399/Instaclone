@@ -2,11 +2,11 @@
 {% load bootstrap4 %}
 {% load static %}
 {% block content%}
-<div class="container">
+<div class="container" style="font-family: 'Nunito', sans-serif;">
   <div class="row">
     <div class="col-md-6">
       {% if user.profile.photo %}
-      <img class="rounded-circle" src="{{user.profile.photo.url}}" width="250px" height="250px" alt="Profile photo">
+      <img class="rounded-circle" src="{{user.profile.photo.cdn_url}}" width="250px" height="250px" alt="Profile photo">
       {% else %}
       <img class="rounded-circle" src="https://uploads.scratch.mit.edu/users/avatars/41074063.png" width="250px"
         height="250px" alt="Profile photo">
@@ -14,9 +14,8 @@
     </div>
     <div class="col-md-6">
       <h5>Username: {{user.username}}</h5>
-      <p>{{user.profile.bio}}</p>
       {% if user.profile.bio %}
-      <p> Bio: {{user.profile.bio}}</p>
+      <p> <em><b>Bio</b></em>: {{user.profile.bio}}</p>
       {% else %}
       <h5>Bio:</h5>
       <p class="alert alert-danger"> No bio</p>
@@ -27,14 +26,14 @@
 </div>
 <hr>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="font-family: 'Nunito', sans-serif;">
   <h4><b><u>Posts</u></b></h4>
   <div class="row">
     {% if posts %}>
     {% for post in posts %}
     <div style="margin-left:10px;" class="card bg-transparent">
       <div class="card-img-top">
-        <img class="image" src="{{post.image.url}}" style="margin-bottom: 10px; height: 300px; width: 410px;"
+        <img class="image" src="{{post.image.cdn_url}}" style="margin-bottom: 10px; height: 300px; width: 410px;"
           alt="{{post.name}}">
       </div>
       <div class="card-body">

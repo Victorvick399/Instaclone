@@ -39,7 +39,9 @@ def update_profile(request):
 		profile_form = ProfileForm(request.POST, instance=request.user.profile)
 		if profile_form.is_valid():
 			Profile.objects.filter(user_id=current_user.id).delete()
-			profile_form.save()
+			profile = profile_form.save(commit=False)
+			profile.user = current_user
+			profile.save()
 			return redirect("Profile")
 	else:
 		profile_form = ProfileForm()
